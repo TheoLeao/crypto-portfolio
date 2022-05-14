@@ -18,48 +18,47 @@ import {
 } from '@chakra-ui/react'
 import { useEffect } from 'react';
 import { useCoinsMarkets } from '../src/hooks/apiHooks';
-import { ECurrency } from '../src/types/apiTypes';
-
-
+import { ECurrency, ICoin } from '../src/types/apiTypes';
+import ColorNumber from '../src/components/ColorNumber/ColorNumber';
 const TableTop20Coins = () => {
 
   const { coins, isLoading, isError } = useCoinsMarkets(ECurrency.USD);
-  console.log(coins);
-
+  console.log(coins)
   return <TableContainer>
     <Table variant='simple'>
-      <TableCaption>Imperial to metric conversion factors</TableCaption>
       <Thead>
         <Tr>
-          <Th>To convert</Th>
-          <Th>into</Th>
-          <Th isNumeric>multiply by</Th>
+          <Th>icone</Th>
+          <Th>id</Th>
+          <Th>symbole</Th>
+          <Th>nom</Th>
+          <Th>% en 24h</Th>
+          <Th>% en 7j</Th>
+          <Th>% en 30j</Th>
+          <Th>% en 1 an</Th>
+          <Th>prix</Th>
         </Tr>
       </Thead>
       <Tbody>
+        {coins && coins.map((coin: ICoin, key: string) => <Tr key={key}>
+          <Td><img src={coin.image} height="40px" width="40px"></img></Td>
+          <Td>{coin.id}</Td>
+          <Td>{coin.symbol}</Td>
+          <Td>{coin.name}</Td>
+          <Td><ColorNumber number={coin.price_change_percentage_24h.toFixed(4)}></ColorNumber> %</Td>
+          <Td><ColorNumber number={coin.price_change_percentage_7d_in_currency.toFixed(4)}></ColorNumber> %</Td>
+          <Td><ColorNumber number={coin.price_change_percentage_30d_in_currency?.toFixed(4)}></ColorNumber> %</Td>
+          <Td><ColorNumber number={coin.price_change_percentage_1y_in_currency?.toFixed(4)}></ColorNumber> %</Td>
+          <Td>{coin.current_price} $</Td>
+        </Tr>)}
         <Tr>
           <Td>inches</Td>
           <Td>millimetres (mm)</Td>
           <Td isNumeric>25.4</Td>
-        </Tr>
-        <Tr>
-          <Td>feet</Td>
-          <Td>centimetres (cm)</Td>
-          <Td isNumeric>30.48</Td>
-        </Tr>
-        <Tr>
-          <Td>yards</Td>
-          <Td>metres (m)</Td>
-          <Td isNumeric>0.91444</Td>
+          <Td isNumeric>25.4</Td>
+          <Td isNumeric>25.4</Td>
         </Tr>
       </Tbody>
-      <Tfoot>
-        <Tr>
-          <Th>To convert</Th>
-          <Th>into</Th>
-          <Th isNumeric>multiply by</Th>
-        </Tr>
-      </Tfoot>
     </Table>
   </TableContainer>
 }
