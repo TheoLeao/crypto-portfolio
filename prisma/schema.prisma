@@ -14,7 +14,7 @@ model Portfolio {
   description String
   user        User?         @relation(fields: [userId], references: [id])
   userId      String?
-  Transaction Transaction[]
+  transactions Transaction[]
 }
 
 model User {
@@ -33,19 +33,19 @@ model Coin {
   id          String        @id @default(cuid())
   slug        String
   name        String
-  Transaction Transaction[]
+  transactions Transaction[]
 }
 
 model TransactionTypes {
   id          String        @id @default(cuid())
   name        String
-  Transaction Transaction[]
+  transactions Transaction[]
 }
 
 model Currencies {
   id          String        @id @default(cuid())
   name        String
-  Transaction Transaction[]
+  transactions Transaction[]
 }
 
 model Transaction {

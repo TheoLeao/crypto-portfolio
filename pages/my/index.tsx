@@ -20,7 +20,7 @@ const PortfoliosTable = (props: any) => {
           return <Tr key={portfolio.id}>
             <Td>{portfolio.title}</Td>
             <Td>{portfolio.description}</Td>
-            <Td></Td>
+            <Td>{portfolio.transactions.length}</Td>
           </Tr>
         })}
       </Tbody>
@@ -46,7 +46,13 @@ const Home: NextPage = ({ portfolios }: any) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const portfolios = await prisma.portfolio.findMany();
+  const portfolios = await prisma.portfolio.findMany({
+    include: {
+      transactions: {
+        select: { id: true },
+      },
+    },
+  });
   return { props: { portfolios } };
 }
 
