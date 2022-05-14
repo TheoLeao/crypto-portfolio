@@ -51,13 +51,6 @@ const TableTop20Coins = () => {
           <Td><ColorNumber number={coin.price_change_percentage_1y_in_currency?.toFixed(4)}></ColorNumber> %</Td>
           <Td>{coin.current_price} $</Td>
         </Tr>)}
-        <Tr>
-          <Td>inches</Td>
-          <Td>millimetres (mm)</Td>
-          <Td isNumeric>25.4</Td>
-          <Td isNumeric>25.4</Td>
-          <Td isNumeric>25.4</Td>
-        </Tr>
       </Tbody>
     </Table>
   </TableContainer>
